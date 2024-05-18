@@ -1,0 +1,48 @@
+@import './functions.scss';
+
+@mixin generate-sizes-rem($className, $styleName, $newMaxSize) {
+    $i: 0;
+    $max: 100;
+    $offset: 1;
+
+    @if $newMaxSize > 0 {
+        $max: $newMaxSize;
+    }
+
+    @while $i <= $max {
+        $pxToRem: remCalc($i);
+
+        #{$className + $i} {
+            #{$styleName}: #{$pxToRem};
+        }
+        $i: $i + $offset;
+    }
+}
+
+@mixin generate-sizes-px($className, $styleName) {
+    $i: 0;
+    $max: 100;
+    $offset: 1;
+    $unit: 'px';
+
+    @while $i <= $max {
+        #{$className + $i} {
+            #{$styleName}: #{$i + $unit};
+        }
+        $i: $i + $offset;
+    }
+}
+
+@mixin generate-sizes-percent($className, $styleName) {
+    $i: 0;
+    $max: 100;
+    $offset: 1;
+    $unit: '%';
+
+    @while $i <= $max {
+        #{$className + $i} {
+            #{$styleName}: #{$i + $unit};
+        }
+        $i: $i + $offset;
+    }
+}
