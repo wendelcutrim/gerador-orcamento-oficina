@@ -24,4 +24,10 @@ export class HomeComponent implements OnInit {
     });
 
     ngOnInit(): void {}
+
+    addJob() {
+        if (this.veiculoForm.valid) {
+            this.servicos.push(this.veiculoForm.value as IServico);
+        }
+    }
 }

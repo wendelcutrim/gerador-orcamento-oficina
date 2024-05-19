@@ -10,9 +10,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { JobSummaryComponent } from './components/job-summary/job-summary.component';
 
 @NgModule({
-    declarations: [AppComponent, HomeComponent, ErrorComponent],
+    declarations: [AppComponent, HomeComponent, ErrorComponent, JobSummaryComponent],
     imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, MatInputModule, MatButtonModule],
     providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
     bootstrap: [AppComponent],

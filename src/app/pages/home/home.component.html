@@ -51,8 +51,10 @@
                     <mat-error *ngIf="servicoForm.get('valor')?.touched && servicoForm.get('valor')?.hasError('required')"> Valor é obrigatório! </mat-error>
                 </mat-form-field>
 
-                <button mat-raised-button color="primary">Adicionar</button>
+                <button mat-raised-button color="primary" (click)="addJob()">Adicionar</button>
             </div>
         </form>
     </article>
+
+    <app-job-summary></app-job-summary>
 </section>
