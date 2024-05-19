@@ -18,6 +18,16 @@ body {
     font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+}
+
 .container {
     width: 100%;
     max-width: 1280px;

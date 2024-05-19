@@ -1,0 +1,71 @@
+@import '../../../scss/functions.scss';
+@import '../../../scss/variables.scss';
+
+.alert {
+    width: 100%;
+
+    &__container {
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        border: 1px solid black;
+        border-radius: 8px;
+        padding: 10px;
+
+        h2 {
+            margin-bottom: 0;
+        }
+
+        &__title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            div {
+                display: flex;
+                align-items: center;
+                gap: remCalc(8);
+            }
+        }
+    }
+}
+
+.warning {
+    .alert__container {
+        border: 2px solid $warning;
+    }
+
+    .alert__title {
+        color: $warning;
+    }
+}
+
+.danger {
+    .alert__container {
+        border: 2px solid $danger;
+    }
+
+    .alert__title {
+        color: $danger;
+    }
+}
+
+.info {
+    .alert__container {
+        border: 2px solid $primary;
+    }
+
+    .alert__title {
+        color: $primary;
+    }
+}
+
+.success {
+    .alert__container {
+        border: 2px solid $success;
+    }
+
+    .alert__title {
+        color: $success;
+    }
+}

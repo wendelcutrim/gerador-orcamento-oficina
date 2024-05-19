@@ -28,6 +28,8 @@ export class HomeComponent implements OnInit {
     addJob() {
         if (this.veiculoForm.valid) {
             this.servicos.push(this.veiculoForm.value as IServico);
+            this.servicoForm.reset();
+        } else {
         }
     }
 }
