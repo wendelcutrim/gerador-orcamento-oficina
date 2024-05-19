@@ -1,6 +1,18 @@
 <section class="home px-20">
     <h1>Gerador de orçamentos</h1>
 
+    <div class="mt-10">
+        <app-alert
+            [showAlert]="alertOptions.showAlert"
+            [icon]="alertOptions.icon"
+            [title]="alertOptions.title"
+            [text]="alertOptions.text"
+            [showCloseButton]="alertOptions.showCloseButton"
+            [variant]="alertOptions.variant"
+            (closeAlert)="handleAlertEvent()"
+        ></app-alert>
+    </div>
+
     <article class="home__form">
         <form class="home__form__veiculo" [formGroup]="veiculoForm">
             <h2>Dados do veículo</h2>
@@ -55,8 +67,6 @@
             </div>
         </form>
     </article>
-
-    <app-alert></app-alert>
 
     <app-job-summary></app-job-summary>
 </section>

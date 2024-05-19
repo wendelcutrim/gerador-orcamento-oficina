@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { AlertIcon, AlertVariant } from 'src/app/interfaces/alert.interface';
 
 @Component({
@@ -7,14 +7,16 @@ import { AlertIcon, AlertVariant } from 'src/app/interfaces/alert.interface';
     styleUrls: ['./alert.component.scss'],
 })
 export class AlertComponent {
-    @Input() showAlert: boolean = true;
+    @Input() showAlert: boolean = false;
     @Input() icon: AlertIcon = 'info';
     @Input() title: string = '';
     @Input() text: string = '';
     @Input() showCloseButton: boolean = true;
     @Input() variant: AlertVariant = 'info';
 
+    @Output() closeAlert = new EventEmitter<boolean>();
+
     close() {
-        this.showAlert = false;
+        this.closeAlert.emit(true);
     }
 }
