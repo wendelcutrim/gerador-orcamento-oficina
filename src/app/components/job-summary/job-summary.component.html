@@ -1,1 +1,16 @@
-<p>job-summary works!</p>
+<section class="job-summary">
+    <div class="mt-10 mb-10" *ngFor="let group of jobsMapped | keyvalue">
+        <mat-accordion>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>{{ getGroupTitle(group.key) }}</mat-expansion-panel-header>
+                <mat-panel-description>
+                    <ul>
+                        <li *ngFor="let job of getGroupList(group.key)">
+                            <p><strong>Descrição:</strong> {{ job.jobs.descricao }} | <strong>Valor: </strong> R$ {{ job.jobs.valor }}</p>
+                        </li>
+                    </ul>
+                </mat-panel-description>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</section>

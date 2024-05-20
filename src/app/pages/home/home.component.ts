@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
     servicoForm = this.formBuilder.group({
         tipo: ['', [Validators.required]],
         descricao: ['', [Validators.required]],
-        valor: [null, [Validators.required]],
+        valor: ['', [Validators.required]],
     });
 
     veiculoForm = this.formBuilder.group({
@@ -35,8 +35,8 @@ export class HomeComponent implements OnInit {
     ngOnInit(): void {}
 
     addJob() {
-        if (this.veiculoForm.valid) {
-            this.servicos.push(this.veiculoForm.value as IServico);
+        if (this.servicoForm.valid) {
+            this.servicos.push(this.servicoForm.value as IServico);
             this.servicoForm.reset();
         } else {
             this.alertOptions = {

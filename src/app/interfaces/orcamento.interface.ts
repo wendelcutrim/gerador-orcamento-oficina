@@ -7,10 +7,12 @@ export interface IVeiculo {
 export interface IServico {
     tipo: string;
     descricao: string;
-    valor: number;
+    valor: string;
 }
 
 export interface IServicos {
     veiculo: IVeiculo;
     servico: IServico[];
 }
+
+export type IServicoResumo = { [key: string]: Array<{ title: string; jobs: IServico }> };

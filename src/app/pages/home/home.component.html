@@ -68,5 +68,7 @@
         </form>
     </article>
 
-    <app-job-summary></app-job-summary>
+    <div *ngIf="servicos.length > 0">
+        <app-job-summary [jobs]="servicos"></app-job-summary>
+    </div>
 </section>

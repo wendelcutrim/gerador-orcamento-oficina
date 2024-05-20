@@ -14,6 +14,7 @@ import { JobSummaryComponent } from './components/job-summary/job-summary.compon
 import { MatDialogModule } from '@angular/material/dialog';
 import { AlertComponent } from './components/alert/alert.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
     declarations: [AppComponent, HomeComponent, ErrorComponent, JobSummaryComponent, AlertComponent],
@@ -28,6 +29,7 @@ import { MatIconModule } from '@angular/material/icon';
         MatButtonModule,
         MatDialogModule,
         MatIconModule,
+        MatExpansionModule,
     ],
     providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
     bootstrap: [AppComponent],
