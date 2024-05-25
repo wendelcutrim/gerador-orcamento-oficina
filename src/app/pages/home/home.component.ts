@@ -102,4 +102,22 @@ export class HomeComponent implements OnInit {
             this.tipoServicos = ['funilaria', 'pintura', 'maoDeObra', 'peca'];
         });
     }
+
+    disabledPdfButton(): boolean {
+        if (this.veiculoForm.invalid && !this.hasServicos()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    hasServicos(): boolean {
+        const { funilaria, pintura, maoDeObra, peca } = this.servicos;
+
+        if (!funilaria.length || !pintura.length || !maoDeObra.length || !peca.length) {
+            return false;
+        }
+
+        return true;
+    }
 }

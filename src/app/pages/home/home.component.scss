@@ -50,4 +50,11 @@
             @extend .home__form__veiculo__wrapper;
         }
     }
+
+    &__pdf {
+        &-button {
+            width: 100%;
+            margin: remCalc(20) 0;
+        }
+    }
 }
