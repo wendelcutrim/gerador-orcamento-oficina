@@ -69,4 +69,16 @@
     <div *ngIf="servicos['funilaria'].length > 0">
         <app-job-summary [jobs]="servicos['funilaria']" title="funilaria"></app-job-summary>
     </div>
+
+    <div *ngIf="servicos['pintura'].length > 0">
+        <app-job-summary [jobs]="servicos['pintura']" title="pintura"></app-job-summary>
+    </div>
+
+    <div *ngIf="servicos['maoDeObra'].length > 0">
+        <app-job-summary [jobs]="servicos['maoDeObra']" title="mão de obra"></app-job-summary>
+    </div>
+
+    <div *ngIf="servicos['peca'].length > 0">
+        <app-job-summary [jobs]="servicos['peca']" title="peças"></app-job-summary>
+    </div>
 </section>
