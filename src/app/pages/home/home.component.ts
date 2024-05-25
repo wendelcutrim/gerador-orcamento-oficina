@@ -1,7 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Alert } from 'src/app/interfaces/alert.interface';
-import { IServico } from 'src/app/interfaces/orcamento.interface';
+import { IServico, TipoServico, TipoServicos } from 'src/app/interfaces/orcamento.interface';
+import { windowScrollTo } from 'src/app/utils/scroll.utils';
 
 @Component({
     selector: 'app-home',
@@ -10,7 +11,16 @@ import { IServico } from 'src/app/interfaces/orcamento.interface';
 })
 export class HomeComponent implements OnInit {
     private formBuilder: FormBuilder = inject(FormBuilder);
-    servicos: IServico[] = [];
+
+    tipoServicos = ['funilaria', 'pintura', 'maoDeObra', 'peca'];
+
+    servicos: TipoServicos = {
+        funilaria: [],
+        pintura: [],
+        maoDeObra: [],
+        peca: [],
+    };
+
     alertOptions: Alert = {
         icon: 'info',
         showAlert: false,
@@ -20,8 +30,9 @@ export class HomeComponent implements OnInit {
         variant: 'info',
     };
 
+    tipoServico: TipoServico | null = null;
+
     servicoForm = this.formBuilder.group({
-        tipo: ['', [Validators.required]],
         descricao: ['', [Validators.required]],
         valor: ['', [Validators.required]],
     });
@@ -35,9 +46,19 @@ export class HomeComponent implements OnInit {
     ngOnInit(): void {}
 
     addJob() {
-        if (this.servicoForm.valid) {
-            this.servicos.push(this.servicoForm.value as IServico);
+        if (this.servicoForm.valid && this.tipoServico) {
+            this.servicos[this.tipoServico].push(this.servicoForm.value as IServico);
             this.servicoForm.reset();
+            this.resetTipoServicos();
+            this.alertOptions = {
+                icon: 'info',
+                showAlert: true,
+                showCloseButton: true,
+                text: '',
+                title: 'Serviço adicionado com sucesso!',
+                variant: 'success',
+            };
+            windowScrollTo(0, 0);
         } else {
             this.alertOptions = {
                 icon: 'error',
@@ -52,5 +73,33 @@ export class HomeComponent implements OnInit {
 
     handleAlertEvent() {
         this.alertOptions.showAlert = false;
+    }
+
+    getJobName(job: string): string {
+        const parsedJobs: { [key: string]: string } = {
+            funilaria: 'Funilaria',
+            pintura: 'Pintura',
+            maoDeObra: 'Mão de Obra',
+            peca: 'Peças',
+        };
+
+        return parsedJobs[job];
+    }
+
+    setTipoServico(job: string) {
+        if (job == this.tipoServico) {
+            this.tipoServico = null;
+            return;
+        }
+
+        this.tipoServico = job as TipoServico;
+    }
+
+    resetTipoServicos() {
+        this.tipoServicos = [];
+        this.tipoServico = null;
+        setTimeout(() => {
+            this.tipoServicos = ['funilaria', 'pintura', 'maoDeObra', 'peca'];
+        });
     }
 }

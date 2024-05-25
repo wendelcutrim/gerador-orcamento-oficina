@@ -59,3 +59,20 @@ a {
 
 @include generate-sizes-percent('.w-per-', 'width');
 @include generate-sizes-percent('.h-per-', 'height');
+
+/* @media print {
+    body {
+        background-color: white;
+    }
+
+    mat-form-field {
+        background: white !important;
+    }
+
+    .mdc-text-field,
+    .mdc-text-field--filled,
+    .mat-mdc-text-field-wrapper,
+    .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+        background-color: white !important;
+    }
+} */

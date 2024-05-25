@@ -15,6 +15,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AlertComponent } from './components/alert/alert.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
     declarations: [AppComponent, HomeComponent, ErrorComponent, JobSummaryComponent, AlertComponent],
@@ -30,6 +31,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
         MatDialogModule,
         MatIconModule,
         MatExpansionModule,
+        MatChipsModule,
     ],
     providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
     bootstrap: [AppComponent],

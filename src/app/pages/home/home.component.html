@@ -42,11 +42,9 @@
         <form class="home__form__servicos" [formGroup]="servicoForm">
             <h2>Serviços</h2>
             <div class="home__form__servicos__wrapper">
-                <mat-form-field floatLabel="always">
-                    <mat-label>tipo</mat-label>
-                    <input matInput formControlName="tipo" placeholder="Ex: Pintura" />
-                    <mat-error *ngIf="servicoForm.get('tipo')?.touched && servicoForm.get('tipo')?.hasError('required')"> tipo é obrigatório! </mat-error>
-                </mat-form-field>
+                <mat-chip-listbox *ngIf="tipoServicos.length" aria-label="serviços">
+                    <mat-chip-option *ngFor="let servico of tipoServicos" (click)="setTipoServico(servico)">{{ getJobName(servico) }}</mat-chip-option>
+                </mat-chip-listbox>
 
                 <mat-form-field>
                     <mat-label>Descrição</mat-label>
@@ -60,15 +58,15 @@
                     <mat-label>Valor</mat-label>
                     <input matInput type="number" formControlName="valor" placeholder="0,00" step="0.01" />
                     <span matTextPrefix>R$&nbsp;</span>
-                    <mat-error *ngIf="servicoForm.get('valor')?.touched && servicoForm.get('valor')?.hasError('required')"> Valor é obrigatório! </mat-error>
+                    <mat-error *ngIf="servicoForm.get('valor')?.touched && servicoForm.get('valor')?.hasError('required')">Valor é obrigatório!</mat-error>
                 </mat-form-field>
 
-                <button mat-raised-button color="primary" (click)="addJob()" [disabled]="servicoForm.invalid">adicionar serviço</button>
+                <button mat-raised-button color="primary" (click)="addJob()" [disabled]="servicoForm.invalid || !tipoServico">adicionar serviço</button>
             </div>
         </form>
     </article>
 
-    <div *ngIf="servicos.length > 0">
-        <app-job-summary [jobs]="servicos"></app-job-summary>
+    <div *ngIf="servicos['funilaria'].length > 0">
+        <app-job-summary [jobs]="servicos['funilaria']" title="funilaria"></app-job-summary>
     </div>
 </section>

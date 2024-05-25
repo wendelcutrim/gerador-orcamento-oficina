@@ -8,49 +8,17 @@ import { IServico, IServicoResumo } from 'src/app/interfaces/orcamento.interface
 })
 export class JobSummaryComponent implements OnInit {
     @Input() jobs: Array<IServico> = [];
-    jobsByGroup: IServicoResumo = {};
-    jobsMapped: Array<IServicoResumo> = [];
-    private cd: ChangeDetectorRef = inject(ChangeDetectorRef);
+    @Input() title: string = '';
 
-    ngOnInit(): void {
-        this.groupByJobs();
-        this.getJobsMapped();
-    }
+    ngOnInit(): void {}
 
-    groupByJobs() {
+    getAmountJob() {
+        const values: number[] = [];
+
         this.jobs.forEach((job) => {
-            if (job.tipo.toUpperCase() in this.jobsByGroup) {
-                this.jobsByGroup[job.tipo.toUpperCase()].push({
-                    title: job.tipo.toUpperCase(),
-                    jobs: job,
-                });
-            } else {
-                this.jobsByGroup[job.tipo.toUpperCase()] = [
-                    {
-                        title: job.tipo.toUpperCase(),
-                        jobs: job,
-                    },
-                ];
-            }
+            values.push(Number(job.valor));
         });
-    }
 
-    getJobsMapped() {
-        for (let group in this.jobsByGroup) {
-            this.jobsMapped.push({ [group]: this.jobsByGroup[group] });
-        }
-    }
-
-    getGroupTitle(groupValue: string) {
-        const group = this.jobsMapped[Number(groupValue)];
-        const title = Object.keys(group)[0];
-        return title;
-    }
-
-    getGroupList(groupValue: string) {
-        const group = this.jobsMapped[Number(groupValue)];
-        const list = Object.values(group)[0];
-
-        return list;
+        return values.reduce((a, b) => a + b, 0).toLocaleString('pt-BR', { style: 'decimal', minimumFractionDigits: 2 });
     }
 }
