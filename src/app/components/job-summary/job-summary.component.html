@@ -18,21 +18,7 @@
                                 <div class="job-summary__item__wrapper">
                                     <p><strong>Valor: </strong> R$ {{ job.valor }}</p>
 
-                                    <button
-                                        mat-icon-button
-                                        color="warn"
-                                        [attr.aria-label]="'deletar ' + job.descricao"
-                                        [swal]="{
-                                        title: 'Você realmente deseja excluir este serviço?',
-                                        text: 'Esta ação não pode ser desfeita',
-                                        icon: 'warning',
-                                        confirmButtonText: 'deletar',
-                                        showCancelButton: true,
-                                        confirmButtonColor: '#F44A3E',
-                                        cancelButtonColor: '#3f51b5',
-                                    }"
-                                        (confirm)="deleteJob(job.id, title)"
-                                    >
+                                    <button mat-icon-button color="warn" [attr.aria-label]="'deletar ' + job.descricao" (click)="deleteJob(job.id, title)">
                                         <mat-icon aria-hidden="true">delete</mat-icon>
                                     </button>
                                 </div>

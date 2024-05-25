@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Alert } from 'src/app/interfaces/alert.interface';
 import { IServico, TipoServico, TipoServicos } from 'src/app/interfaces/orcamento.interface';
 import { windowScrollTo } from 'src/app/utils/scroll.utils';
@@ -33,14 +33,18 @@ export class HomeComponent implements OnInit {
     tipoServico: TipoServico | null = null;
 
     servicoForm = this.formBuilder.group({
-        descricao: ['', [Validators.required]],
+        descricao: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9,. ]+$')]],
         valor: ['', [Validators.required]],
     });
 
     veiculoForm = this.formBuilder.group({
-        proprietario: ['', [Validators.required]],
+        proprietario: ['', [Validators.required, Validators.pattern('^[a-zA-Zs ]+$'), Validators.maxLength(255)]],
         placa: ['', [Validators.required]],
-        marca: ['', [Validators.required]],
+        marca: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9,. ]+$'), Validators.maxLength(200)]],
+    });
+
+    observacoes: FormGroup = this.formBuilder.group({
+        observacao: [''],
     });
 
     ngOnInit(): void {}
@@ -109,7 +113,7 @@ export class HomeComponent implements OnInit {
     }
 
     disabledPdfButton(): boolean {
-        if (this.veiculoForm.invalid && !this.hasServicos()) {
+        if (this.veiculoForm.invalid || !this.hasServicos()) {
             return true;
         }
 
@@ -119,11 +123,11 @@ export class HomeComponent implements OnInit {
     hasServicos(): boolean {
         const { funilaria, pintura, maoDeObra, peca } = this.servicos;
 
-        if (!funilaria.length || !pintura.length || !maoDeObra.length || !peca.length) {
-            return false;
+        if (funilaria.length > 0 || pintura.length > 0 || maoDeObra.length > 0 || peca.length > 0) {
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     deleteJob(job: { id: string; title: string }) {

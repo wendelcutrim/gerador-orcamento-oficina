@@ -19,9 +19,10 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { VehiclePlateMaskDirective } from './directives/vehicle-plate-mask.directive';
 
 @NgModule({
-    declarations: [AppComponent, HomeComponent, ErrorComponent, JobSummaryComponent, AlertComponent],
+    declarations: [AppComponent, HomeComponent, ErrorComponent, JobSummaryComponent, AlertComponent, VehiclePlateMaskDirective],
     imports: [
         BrowserModule,
         AppRoutingModule,

@@ -25,8 +25,21 @@ export class JobSummaryComponent implements OnInit {
     }
 
     deleteJob(id: string, title: string): void {
-        title = this.parseTitleKey(title);
-        this.destroyJob.emit({ id, title });
+        Swal.fire({
+            title: 'Você realmente deseja excluir este serviço?',
+            text: 'Esta ação não pode ser desfeita',
+            icon: 'warning',
+            confirmButtonText: 'deletar',
+            cancelButtonText: 'cancelar',
+            showCancelButton: true,
+            confirmButtonColor: '#F44A3E',
+            cancelButtonColor: '#3f51b5',
+        }).then((res) => {
+            if (res.isConfirmed) {
+                title = this.parseTitleKey(title);
+                this.destroyJob.emit({ id, title });
+            }
+        });
     }
 
     parseTitleKey(title: string): string {
