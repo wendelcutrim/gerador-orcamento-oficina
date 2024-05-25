@@ -16,6 +16,8 @@ import { AlertComponent } from './components/alert/alert.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
     declarations: [AppComponent, HomeComponent, ErrorComponent, JobSummaryComponent, AlertComponent],
@@ -32,6 +34,8 @@ import { MatChipsModule } from '@angular/material/chips';
         MatIconModule,
         MatExpansionModule,
         MatChipsModule,
+        MatDividerModule,
+        MatListModule,
     ],
     providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
     bootstrap: [AppComponent],

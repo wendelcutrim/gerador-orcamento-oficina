@@ -10,9 +10,20 @@
                 </mat-expansion-panel-header>
 
                 <mat-panel-description>
-                    <ul class="pl-30">
+                    <ul class="job-summary__list">
                         <li *ngFor="let job of jobs">
-                            <p><strong>Descrição:</strong> {{ job.descricao }} | <strong>Valor: </strong> R$ {{ job.valor }}</p>
+                            <div class="job-summary__item">
+                                <p><strong>Descrição:</strong> {{ job.descricao }}</p>
+
+                                <div class="job-summary__item__wrapper">
+                                    <p><strong>Valor: </strong> R$ {{ job.valor }}</p>
+
+                                    <button mat-icon-button color="warn" [attr.aria-label]="'deletar ' + job.descricao">
+                                        <mat-icon aria-hidden="true">delete</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                            <mat-divider></mat-divider>
                         </li>
                     </ul>
                 </mat-panel-description>

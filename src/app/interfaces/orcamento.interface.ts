@@ -9,6 +9,7 @@ export interface IVeiculo {
 }
 
 export interface IServico {
+    id: string;
     descricao: string;
     valor: string;
 }

@@ -47,7 +47,12 @@ export class HomeComponent implements OnInit {
 
     addJob() {
         if (this.servicoForm.valid && this.tipoServico) {
-            this.servicos[this.tipoServico].push(this.servicoForm.value as IServico);
+            const servico: IServico = {
+                id: self.crypto.randomUUID(),
+                descricao: this.servicoForm.get('descricao')?.value as string,
+                valor: this.servicoForm.get('valor')?.value as string,
+            };
+            this.servicos[this.tipoServico].push(servico);
             this.servicoForm.reset();
             this.resetTipoServicos();
             this.alertOptions = {
