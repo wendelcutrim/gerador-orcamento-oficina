@@ -1,5 +1,6 @@
-import { ChangeDetectorRef, Component, inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { IServico, IServicoResumo } from 'src/app/interfaces/orcamento.interface';
+import { ChangeDetectorRef, Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { IServico, IServicoResumo, TipoServico } from 'src/app/interfaces/orcamento.interface';
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-job-summary',
@@ -9,6 +10,7 @@ import { IServico, IServicoResumo } from 'src/app/interfaces/orcamento.interface
 export class JobSummaryComponent implements OnInit {
     @Input() jobs: Array<IServico> = [];
     @Input() title: string = '';
+    @Output() destroyJob = new EventEmitter<{ id: string; title: string }>();
 
     ngOnInit(): void {}
 
@@ -20,5 +22,21 @@ export class JobSummaryComponent implements OnInit {
         });
 
         return values.reduce((a, b) => a + b, 0).toLocaleString('pt-BR', { style: 'decimal', minimumFractionDigits: 2 });
+    }
+
+    deleteJob(id: string, title: string): void {
+        title = this.parseTitleKey(title);
+        this.destroyJob.emit({ id, title });
+    }
+
+    parseTitleKey(title: string): string {
+        const titleKey: any = {
+            funilaria: 'funilaria',
+            pintura: 'pintura',
+            'mão de obra': 'maoDeObra',
+            peças: 'peca',
+        };
+
+        return titleKey[title];
     }
 }

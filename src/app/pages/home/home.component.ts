@@ -125,4 +125,19 @@ export class HomeComponent implements OnInit {
 
         return true;
     }
+
+    deleteJob(job: { id: string; title: string }) {
+        console.log('deleteJob: ', job);
+        const { id, title } = job;
+        this.servicos[title] = this.servicos[title].filter((servico) => servico.id !== id);
+        this.alertOptions = {
+            icon: 'info',
+            showAlert: true,
+            showCloseButton: true,
+            text: '',
+            title: 'Serviço excluído com sucesso!',
+            variant: 'success',
+        };
+        windowScrollTo(0, 0);
+    }
 }

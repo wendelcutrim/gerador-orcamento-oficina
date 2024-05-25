@@ -18,6 +18,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
     declarations: [AppComponent, HomeComponent, ErrorComponent, JobSummaryComponent, AlertComponent],
@@ -36,6 +37,7 @@ import { MatListModule } from '@angular/material/list';
         MatChipsModule,
         MatDividerModule,
         MatListModule,
+        SweetAlert2Module.forRoot(),
     ],
     providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
     bootstrap: [AppComponent],

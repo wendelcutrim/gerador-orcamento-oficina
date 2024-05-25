@@ -28,13 +28,13 @@
                 <mat-form-field>
                     <mat-label>Placa</mat-label>
                     <input matInput formControlName="placa" />
-                    <mat-error *ngIf="veiculoForm.get('placa')?.touched && veiculoForm.get('placa')?.hasError('required')"> Placa é obrigatório! </mat-error>
+                    <mat-error *ngIf="veiculoForm.get('placa')?.touched && veiculoForm.get('placa')?.hasError('required')">Placa é obrigatório!</mat-error>
                 </mat-form-field>
 
                 <mat-form-field>
-                    <mat-label>Marca</mat-label>
+                    <mat-label>Veículo</mat-label>
                     <input matInput formControlName="marca" />
-                    <mat-error *ngIf="veiculoForm.get('marca')?.touched && veiculoForm.get('marca')?.hasError('required')"> Marca é obrigatório! </mat-error>
+                    <mat-error *ngIf="veiculoForm.get('marca')?.touched && veiculoForm.get('marca')?.hasError('required')">Veículo é obrigatório!</mat-error>
                 </mat-form-field>
             </div>
         </form>
@@ -68,19 +68,19 @@
 
     <article class="home__form__jobs">
         <div *ngIf="servicos['funilaria'].length > 0">
-            <app-job-summary [jobs]="servicos['funilaria']" title="funilaria"></app-job-summary>
+            <app-job-summary [jobs]="servicos['funilaria']" title="funilaria" (destroyJob)="deleteJob($event)"></app-job-summary>
         </div>
 
         <div *ngIf="servicos['pintura'].length > 0">
-            <app-job-summary [jobs]="servicos['pintura']" title="pintura"></app-job-summary>
+            <app-job-summary [jobs]="servicos['pintura']" title="pintura" (destroyJob)="deleteJob($event)"></app-job-summary>
         </div>
 
         <div *ngIf="servicos['maoDeObra'].length > 0">
-            <app-job-summary [jobs]="servicos['maoDeObra']" title="mão de obra"></app-job-summary>
+            <app-job-summary [jobs]="servicos['maoDeObra']" title="mão de obra" (destroyJob)="deleteJob($event)"></app-job-summary>
         </div>
 
         <div *ngIf="servicos['peca'].length > 0">
-            <app-job-summary [jobs]="servicos['peca']" title="peças"></app-job-summary>
+            <app-job-summary [jobs]="servicos['peca']" title="peças" (destroyJob)="deleteJob($event)"></app-job-summary>
         </div>
     </article>
 

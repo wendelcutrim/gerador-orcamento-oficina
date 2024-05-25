@@ -18,7 +18,21 @@
                                 <div class="job-summary__item__wrapper">
                                     <p><strong>Valor: </strong> R$ {{ job.valor }}</p>
 
-                                    <button mat-icon-button color="warn" [attr.aria-label]="'deletar ' + job.descricao">
+                                    <button
+                                        mat-icon-button
+                                        color="warn"
+                                        [attr.aria-label]="'deletar ' + job.descricao"
+                                        [swal]="{
+                                        title: 'Você realmente deseja excluir este serviço?',
+                                        text: 'Esta ação não pode ser desfeita',
+                                        icon: 'warning',
+                                        confirmButtonText: 'deletar',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#F44A3E',
+                                        cancelButtonColor: '#3f51b5',
+                                    }"
+                                        (confirm)="deleteJob(job.id, title)"
+                                    >
                                         <mat-icon aria-hidden="true">delete</mat-icon>
                                     </button>
                                 </div>
@@ -30,4 +44,15 @@
             </mat-expansion-panel>
         </mat-accordion>
     </div>
+
+    <!-- <div class="job-summary-modal">
+        <h2 mat-dialog-title>Deletar</h2>
+        <div mat-dialog-content>
+            <p>Você realmente deseja excluir este serviço?</p>
+        </div>
+        <div mat-dialog-actions>
+            <button mat-button color="basic" (click)="onNoClick()">cancelar</button>
+            <button mat-button color="warn" [mat-dialog-close]="data.animal" cdkFocusInitial>deletar</button>
+        </div>
+    </div> -->
 </section>
