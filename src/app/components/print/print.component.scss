@@ -1,0 +1,21 @@
+.print {
+    background-color: white;
+    padding: 20px;
+
+    h2 {
+        text-align: center;
+    }
+
+    header {
+        text-align: center;
+        h1 {
+            font-weight: bold;
+        }
+    }
+
+    &__vehicle {
+    }
+
+    &__jobs {
+    }
+}

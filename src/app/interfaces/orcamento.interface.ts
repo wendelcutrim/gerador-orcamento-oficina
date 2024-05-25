@@ -18,3 +18,7 @@ export interface IServicos {
     veiculo: IVeiculo;
     servico: IServico[];
 }
+
+export interface IOrcamento extends IServico {
+    tipo: string;
+}

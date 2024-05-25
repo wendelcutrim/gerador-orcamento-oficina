@@ -1,7 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Alert } from 'src/app/interfaces/alert.interface';
-import { IServico, TipoServico, TipoServicos } from 'src/app/interfaces/orcamento.interface';
+import { IServico, IVeiculo, TipoServico, TipoServicos } from 'src/app/interfaces/orcamento.interface';
+import { PrintService } from 'src/app/services/print.service';
 import { windowScrollTo } from 'src/app/utils/scroll.utils';
 
 @Component({
@@ -11,6 +12,7 @@ import { windowScrollTo } from 'src/app/utils/scroll.utils';
 })
 export class HomeComponent implements OnInit {
     private formBuilder: FormBuilder = inject(FormBuilder);
+    private printService: PrintService = inject(PrintService);
 
     tipoServicos = ['funilaria', 'pintura', 'maoDeObra', 'peca'];
 
@@ -143,5 +145,10 @@ export class HomeComponent implements OnInit {
             variant: 'success',
         };
         windowScrollTo(0, 0);
+    }
+
+    printPdf() {
+        this.printService.setJobs(this.servicos).subscribe();
+        this.printService.setVehicleData(this.veiculoForm.value as IVeiculo).subscribe();
     }
 }

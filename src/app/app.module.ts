@@ -1,4 +1,4 @@
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,9 +20,12 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { VehiclePlateMaskDirective } from './directives/vehicle-plate-mask.directive';
+import { PrintComponent } from './components/print/print.component';
+import { MatTableModule } from '@angular/material/table';
+import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
 
 @NgModule({
-    declarations: [AppComponent, HomeComponent, ErrorComponent, JobSummaryComponent, AlertComponent, VehiclePlateMaskDirective],
+    declarations: [AppComponent, HomeComponent, ErrorComponent, JobSummaryComponent, AlertComponent, VehiclePlateMaskDirective, PrintComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -38,9 +41,14 @@ import { VehiclePlateMaskDirective } from './directives/vehicle-plate-mask.direc
         MatChipsModule,
         MatDividerModule,
         MatListModule,
+        MatTableModule,
         SweetAlert2Module.forRoot(),
     ],
-    providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
+    providers: [
+        // { provide: LOCALE_ID, useValue: 'pt-BR' },
+        // { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' },
+        // { provide: DATE_PIPE_DEFAULT_OPTIONS, useValue: { style: 'currency', currency: 'BRL' } },
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {}
