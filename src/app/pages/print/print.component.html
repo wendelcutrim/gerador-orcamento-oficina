@@ -60,4 +60,15 @@
             Orçamento válido até: <strong>{{ next10days }}</strong>
         </p>
     </article>
+
+    <div class="print__controls">
+        <button mat-fab extended color="primary" (click)="print()">
+            <mat-icon aria-hidden="true">picture_as_pdf</mat-icon>
+            imprimir orçamento
+        </button>
+        <button mat-fab extended color="accent" (click)="redirectTo()">
+            <mat-icon aria-hidden="true">arrow_back</mat-icon>
+            voltar
+        </button>
+    </div>
 </section>

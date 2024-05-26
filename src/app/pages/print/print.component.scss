@@ -45,4 +45,15 @@
             margin-top: remCalc(24);
         }
     }
+
+    &__controls {
+        margin-top: remCalc(24);
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+
+        button {
+            width: 100%;
+        }
+    }
 }

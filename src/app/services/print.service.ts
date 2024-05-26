@@ -49,4 +49,10 @@ export class PrintService {
     getComments(): Observable<string> {
         return this.comments.asObservable();
     }
+
+    resetAllState() {
+        this.jobs.next({ funilaria: [], pintura: [], maoDeObra: [], peca: [] });
+        this.vehicleData.next({ marca: '', placa: '', proprietario: '' });
+        this.comments.next('');
+    }
 }

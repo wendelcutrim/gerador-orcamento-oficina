@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Alert } from 'src/app/interfaces/alert.interface';
 import { IServico, IVeiculo, TipoServico, TipoServicos } from 'src/app/interfaces/orcamento.interface';
 import { PrintService } from 'src/app/services/print.service';
@@ -13,6 +14,7 @@ import { windowScrollTo } from 'src/app/utils/scroll.utils';
 export class HomeComponent implements OnInit {
     private formBuilder: FormBuilder = inject(FormBuilder);
     private printService: PrintService = inject(PrintService);
+    private router: Router = inject(Router);
 
     tipoServicos = ['funilaria', 'pintura', 'maoDeObra', 'peca'];
 
@@ -49,7 +51,31 @@ export class HomeComponent implements OnInit {
         observacao: ['', [Validators.maxLength(500), Validators.pattern('^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿ .,:()-]+$')]],
     });
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.checkPrintServiceState();
+    }
+
+    checkPrintServiceState() {
+        this.printService.getJobs().subscribe({
+            next: (res) => {
+                Object.keys(res).forEach((key) => {
+                    this.servicos[key] = res[key];
+                });
+            },
+        });
+
+        this.printService.getVehicleData().subscribe({
+            next: (res) => {
+                this.veiculoForm.patchValue(res);
+            },
+        });
+
+        this.printService.getComments().subscribe({
+            next: (res) => {
+                this.observacoes.patchValue({ observacao: res });
+            },
+        });
+    }
 
     addJob() {
         if (this.servicoForm.valid && this.tipoServico) {
@@ -156,5 +182,7 @@ export class HomeComponent implements OnInit {
         if (this.observacoes.get('observacao')?.value) {
             this.printService.setComments(this.observacoes.get('observacao')?.value).subscribe();
         }
+
+        this.router.navigate(['/print']);
     }
 }

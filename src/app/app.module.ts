@@ -20,7 +20,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { VehiclePlateMaskDirective } from './directives/vehicle-plate-mask.directive';
-import { PrintComponent } from './components/print/print.component';
+import { PrintComponent } from './pages/print/print.component';
 import { MatTableModule } from '@angular/material/table';
 import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
 

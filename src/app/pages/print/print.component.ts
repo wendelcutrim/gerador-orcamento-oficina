@@ -2,6 +2,7 @@ import { Component, inject, Input, OnInit } from '@angular/core';
 import { IOrcamento, IServico, IVeiculo, TipoServico, TipoServicos } from 'src/app/interfaces/orcamento.interface';
 import { PrintService } from 'src/app/services/print.service';
 import dayjs from 'dayjs';
+import { Router } from '@angular/router';
 @Component({
     selector: 'app-print',
     templateUrl: './print.component.html',
@@ -9,6 +10,7 @@ import dayjs from 'dayjs';
 })
 export class PrintComponent implements OnInit {
     private printService: PrintService = inject(PrintService);
+    private router: Router = inject(Router);
 
     jobs: IOrcamento[] = [{ descricao: 'a', id: '1', tipo: 'funilaria', valor: '10' }];
     vehicleData: IVeiculo = {
@@ -81,5 +83,20 @@ export class PrintComponent implements OnInit {
 
     getTotalCost() {
         return this.jobs.reduce((acc, job) => acc + Number(job.valor), 0).toLocaleString('pt-BR', { style: 'decimal', minimumFractionDigits: 2 });
+    }
+
+    redirectTo(url?: string) {
+        if (url) {
+            this.router.navigate([`/${url}`]);
+        } else {
+            this.router.navigate(['/']);
+        }
+    }
+
+    print() {
+        console.log('chamou a função print');
+        alert('teste impressao');
+        this.printService.resetAllState();
+        this.redirectTo();
     }
 }
