@@ -1,0 +1,29 @@
+.error {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+
+    background-color: whitesmoke;
+
+    h1 {
+        margin-bottom: 2rem;
+        font-weight: bold;
+    }
+
+    img {
+        width: 400px;
+    }
+
+    button {
+        margin-top: 2rem;
+        width: 100%;
+    }
+
+    @media screen and (min-width: 768px) {
+        button {
+            width: 300px;
+        }
+    }
+}
