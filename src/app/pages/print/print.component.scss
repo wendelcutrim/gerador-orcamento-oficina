@@ -1,0 +1,59 @@
+@import '../../../scss/functions.scss';
+
+.print {
+    background-color: white;
+    padding: 20px;
+
+    h2 {
+        text-align: center;
+    }
+
+    header {
+        text-align: center;
+        h1 {
+            font-weight: bold;
+        }
+    }
+
+    &__vehicle {
+    }
+
+    &__jobs {
+    }
+
+    &__comments {
+        margin-top: 1rem;
+
+        h2,
+        p {
+            border: 1px solid black;
+        }
+
+        h2 {
+            margin-bottom: 0;
+        }
+
+        p {
+            padding: 0 remCalc(12);
+        }
+    }
+
+    &__footer {
+        text-align: center;
+
+        p:first-child {
+            margin-top: remCalc(24);
+        }
+    }
+
+    &__controls {
+        margin-top: remCalc(24);
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+
+        button {
+            width: 100%;
+        }
+    }
+}

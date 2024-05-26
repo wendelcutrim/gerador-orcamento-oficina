@@ -1,0 +1,19 @@
+<section class="alert" [ngClass]="variant" *ngIf="showAlert">
+    <div class="alert__container">
+        <div class="alert__container__title">
+            <div>
+                <div aria-hidden="true">
+                    <mat-icon class="alert__title" aria-hidden="true" [fontIcon]="icon"></mat-icon>
+                </div>
+
+                <h2 role="alert">{{ title }}</h2>
+            </div>
+
+            <button (click)="close()" aria-label="fechar">
+                <mat-icon *ngIf="showCloseButton" aria-hidden="true" fontIcon="close"></mat-icon>
+            </button>
+        </div>
+
+        <div class="alert__text">{{ text }}</div>
+    </div>
+</section>
