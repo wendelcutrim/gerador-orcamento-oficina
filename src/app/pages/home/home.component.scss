@@ -43,7 +43,8 @@
         }
     }
 
-    &__form__servicos {
+    &__form__servicos,
+    &__form__observacoes {
         @extend .home__form__veiculo;
 
         &__wrapper {

@@ -16,6 +16,7 @@ export class PrintComponent implements OnInit {
         placa: '',
         proprietario: '',
     };
+    comments: string = '';
     displayedColumns: string[] = ['job', 'description', 'value'];
     showTable: boolean = false;
     today: Date = new Date();
@@ -40,6 +41,12 @@ export class PrintComponent implements OnInit {
                 this.vehicleData.marca = res.marca;
                 this.vehicleData.placa = res.placa;
                 this.vehicleData.proprietario = res.proprietario;
+            },
+        });
+
+        this.printService.getComments().subscribe({
+            next: (res) => {
+                this.comments = res;
             },
         });
     }

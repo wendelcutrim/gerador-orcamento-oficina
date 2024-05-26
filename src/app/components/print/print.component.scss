@@ -16,12 +16,26 @@
     }
 
     &__vehicle {
-        /* p:first-child {
-            margin-top: 1rem;
-        } */
     }
 
     &__jobs {
+    }
+
+    &__comments {
+        margin-top: 1rem;
+
+        h2,
+        p {
+            border: 1px solid black;
+        }
+
+        h2 {
+            margin-bottom: 0;
+        }
+
+        p {
+            padding: 0 remCalc(12);
+        }
     }
 
     &__footer {

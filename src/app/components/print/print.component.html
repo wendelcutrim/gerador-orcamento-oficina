@@ -42,6 +42,11 @@
         </table>
     </article>
 
+    <article *ngIf="comments" class="print__comments">
+        <h2>Observação</h2>
+        <p>{{ comments }}</p>
+    </article>
+
     <!-- <p class="print__amount"><strong>Valor total:</strong> R$ teste</p> -->
 
     <article class="print__footer">

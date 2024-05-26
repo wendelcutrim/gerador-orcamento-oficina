@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
     tipoServico: TipoServico | null = null;
 
     servicoForm = this.formBuilder.group({
-        descricao: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿ .,]+$')]],
+        descricao: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿ .,:()-]+$')]],
         valor: ['', [Validators.required]],
     });
 
@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit {
     });
 
     observacoes: FormGroup = this.formBuilder.group({
-        observacao: [''],
+        observacao: ['', [Validators.maxLength(500), Validators.pattern('^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿ .,:()-]+$')]],
     });
 
     ngOnInit(): void {}
@@ -152,5 +152,9 @@ export class HomeComponent implements OnInit {
     printPdf() {
         this.printService.setJobs(this.servicos).subscribe();
         this.printService.setVehicleData(this.veiculoForm.value as IVeiculo).subscribe();
+
+        if (this.observacoes.get('observacao')?.value) {
+            this.printService.setComments(this.observacoes.get('observacao')?.value).subscribe();
+        }
     }
 }

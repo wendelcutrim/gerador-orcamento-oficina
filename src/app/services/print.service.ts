@@ -12,11 +12,14 @@ export class PrintService {
         maoDeObra: [],
         peca: [],
     });
+
     private vehicleData = new BehaviorSubject<IVeiculo>({
         marca: '',
         placa: '',
         proprietario: '',
     });
+
+    private comments = new BehaviorSubject<string>('');
 
     constructor() {}
 
@@ -36,5 +39,14 @@ export class PrintService {
 
     getVehicleData(): Observable<IVeiculo> {
         return this.vehicleData.asObservable();
+    }
+
+    setComments(comments: string): Observable<string> {
+        this.comments.next(comments);
+        return this.comments.asObservable();
+    }
+
+    getComments(): Observable<string> {
+        return this.comments.asObservable();
     }
 }

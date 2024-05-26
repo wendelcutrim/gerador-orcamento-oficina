@@ -49,6 +49,22 @@
             </div>
         </form>
 
+        <form class="home__form__observacoes" [formGroup]="observacoes">
+            <h2>Observações</h2>
+            <div class="home__form__observacoes__wrapper">
+                <mat-form-field>
+                    <mat-label>Observações</mat-label>
+                    <textarea matInput formControlName="observacao"></textarea>
+                    <mat-error *ngIf="observacoes.get('observacao')?.touched && servicoForm.get('observacao')?.hasError('maxlength')">
+                        observação deve ter no máximo 500 caracteres!
+                    </mat-error>
+                    <mat-error *ngIf="observacoes.get('observacao')?.hasError('pattern')">
+                        Só pode conter letras, números e os caracteres [",",".", "()", ":"]!
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </form>
+
         <form class="home__form__servicos" [formGroup]="servicoForm">
             <h2>Serviços</h2>
             <div class="home__form__servicos__wrapper">
