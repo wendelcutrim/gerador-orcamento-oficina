@@ -8,8 +8,8 @@
 
     <article class="print__vehicle">
         <h2>Orçamento</h2>
-        <p><strong>Veículo:</strong> {{ vehicleData.marca }}, placa {{ vehicleData.placa }}</p>
-        <p><strong>Proprietário:</strong> {{ vehicleData.proprietario }}</p>
+        <p><strong>Veículo:</strong> {{ vehicleData.marca | uppercase }}, PLACA {{ vehicleData.placa | uppercase }}</p>
+        <p><strong>Proprietário:</strong> {{ vehicleData.proprietario | titlecase }}</p>
     </article>
 
     <article class="print__jobs">
@@ -31,7 +31,9 @@
             <ng-container matColumnDef="value">
                 <th mat-header-cell *matHeaderCellDef>Valor</th>
                 <td mat-cell *matCellDef="let job">R$: {{ job.valor.toLocaleString('pt-BR', { style: 'decimal', minimumFractionDigits: 2 }) }}</td>
-                <td mat-footer-cell *matFooterCellDef>R$ {{ getTotalCost() }}</td>
+                <td mat-footer-cell *matFooterCellDef>
+                    <strong>R$ {{ getTotalCost() }}</strong>
+                </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -43,9 +45,14 @@
     <!-- <p class="print__amount"><strong>Valor total:</strong> R$ teste</p> -->
 
     <article class="print__footer">
-        <p>
-            <strong>Orçamento válido por 10 dias a partir desta data ({{ next10days }}).</strong>
-        </p>
         <p>Londrina, {{ today | date : 'dd/MM/yyyy' }}</p>
+
+        <p>
+            <strong>Orçamento válido por 10 dias a partir da data de emissão.</strong>
+        </p>
+
+        <p>
+            Orçamento válido até: <strong>{{ next10days }}</strong>
+        </p>
     </article>
 </section>

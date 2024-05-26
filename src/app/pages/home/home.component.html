@@ -23,9 +23,7 @@
                     <mat-error *ngIf="veiculoForm.get('proprietario')?.touched && veiculoForm.get('proprietario')?.hasError('required')">
                         Proprietário é obrigatório!
                     </mat-error>
-                    <mat-error *ngIf="veiculoForm.get('proprietario')?.touched && veiculoForm.get('proprietario')?.hasError('pattern')">
-                        Digite um nome válido, só é permitido letras!
-                    </mat-error>
+                    <mat-error *ngIf="veiculoForm.get('proprietario')?.hasError('pattern')"> Digite um nome válido, só é permitido letras! </mat-error>
                     <mat-error *ngIf="veiculoForm.get('proprietario')?.touched && veiculoForm.get('proprietario')?.hasError('maxlength')">
                         Nome deve ter no máximo 255 caracteres!
                     </mat-error>
@@ -35,6 +33,9 @@
                     <mat-label>Placa</mat-label>
                     <input matInput formControlName="placa" placeholder="ABC-1234" appVehiclePlateMask />
                     <mat-error *ngIf="veiculoForm.get('placa')?.touched && veiculoForm.get('placa')?.hasError('required')">Placa é obrigatório!</mat-error>
+                    <mat-error *ngIf="veiculoForm.get('placa')?.touched && veiculoForm.get('placa')?.hasError('maxlength')"
+                        >Placa deve ter 8 caracteres</mat-error
+                    >
                 </mat-form-field>
 
                 <mat-form-field>
@@ -43,6 +44,7 @@
                     <mat-error *ngIf="veiculoForm.get('marca')?.touched && veiculoForm.get('marca')?.hasError('required')">Veículo é obrigatório!</mat-error>
                     <mat-error *ngIf="servicoForm.get('marca')?.hasError('pattern')"> Só pode conter letras, números e os caracteres ["," e "."]! </mat-error>
                     <mat-error *ngIf="servicoForm.get('marca')?.hasError('maxlength')"> Veículo deve ter no máximo 250 caracteres! </mat-error>
+                    <mat-error *ngIf="servicoForm.get('marca')?.hasError('pattern')">Só pode conter letras, números e os caracteres ["," e "."]!</mat-error>
                 </mat-form-field>
             </div>
         </form>

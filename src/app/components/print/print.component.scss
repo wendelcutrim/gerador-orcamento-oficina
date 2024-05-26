@@ -1,3 +1,5 @@
+@import '../../../scss/functions.scss';
+
 .print {
     background-color: white;
     padding: 20px;
@@ -14,8 +16,19 @@
     }
 
     &__vehicle {
+        /* p:first-child {
+            margin-top: 1rem;
+        } */
     }
 
     &__jobs {
+    }
+
+    &__footer {
+        text-align: center;
+
+        p:first-child {
+            margin-top: remCalc(24);
+        }
     }
 }

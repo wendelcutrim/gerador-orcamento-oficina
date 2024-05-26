@@ -35,14 +35,14 @@ export class HomeComponent implements OnInit {
     tipoServico: TipoServico | null = null;
 
     servicoForm = this.formBuilder.group({
-        descricao: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9,. ]+$')]],
+        descricao: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿ .,]+$')]],
         valor: ['', [Validators.required]],
     });
 
     veiculoForm = this.formBuilder.group({
-        proprietario: ['', [Validators.required, Validators.pattern('^[a-zA-Zs ]+$'), Validators.maxLength(255)]],
+        proprietario: ['', [Validators.required, Validators.pattern('^[a-zA-Zs-áàâäãåçéèêëíìîïñóòôöõúùûüýÿ ]+$'), Validators.maxLength(255)]],
         placa: ['', [Validators.required]],
-        marca: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9,. ]+$'), Validators.maxLength(200)]],
+        marca: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿ .,]+$'), Validators.maxLength(200)]],
     });
 
     observacoes: FormGroup = this.formBuilder.group({
@@ -133,9 +133,10 @@ export class HomeComponent implements OnInit {
     }
 
     deleteJob(job: { id: string; title: string }) {
-        console.log('deleteJob: ', job);
         const { id, title } = job;
+
         this.servicos[title] = this.servicos[title].filter((servico) => servico.id !== id);
+
         this.alertOptions = {
             icon: 'info',
             showAlert: true,
@@ -144,6 +145,7 @@ export class HomeComponent implements OnInit {
             title: 'Serviço excluído com sucesso!',
             variant: 'success',
         };
+
         windowScrollTo(0, 0);
     }
 

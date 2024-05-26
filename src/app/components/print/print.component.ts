@@ -1,5 +1,5 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { IOrcamento, IServico, IVeiculo, TipoServicos } from 'src/app/interfaces/orcamento.interface';
+import { IOrcamento, IServico, IVeiculo, TipoServico, TipoServicos } from 'src/app/interfaces/orcamento.interface';
 import { PrintService } from 'src/app/services/print.service';
 import dayjs from 'dayjs';
 @Component({
@@ -44,44 +44,30 @@ export class PrintComponent implements OnInit {
         });
     }
 
+    parseJobTitleKey(key: TipoServico): string {
+        const jobsParsed = {
+            funilaria: 'funilaria',
+            pintura: 'pintura',
+            maoDeObra: 'mão de obra',
+            peca: 'peças',
+        };
+
+        return jobsParsed[key];
+    }
+
     transformJobArr(jobs: TipoServicos): IOrcamento[] {
         const jobsMapped: IOrcamento[] = [];
 
-        if (jobs['funilaria'].length > 0) {
-            jobs['funilaria'].forEach((job) => {
-                jobsMapped.push({
-                    ...job,
-                    tipo: 'funilaria',
+        Object.keys(jobs).forEach((key) => {
+            if (jobs[key].length > 0) {
+                jobs[key].forEach((job) => {
+                    jobsMapped.push({
+                        ...job,
+                        tipo: this.parseJobTitleKey(key as TipoServico),
+                    });
                 });
-            });
-        }
-
-        if (jobs['pintura'].length > 0) {
-            jobs['pintura'].forEach((job) => {
-                jobsMapped.push({
-                    ...job,
-                    tipo: 'pintura',
-                });
-            });
-        }
-
-        if (jobs['maoDeObra'].length > 0) {
-            jobs['maoDeObra'].forEach((job) => {
-                jobsMapped.push({
-                    ...job,
-                    tipo: 'mão de obra',
-                });
-            });
-        }
-
-        if (jobs['peca'].length > 0) {
-            jobs['peca'].forEach((job) => {
-                jobsMapped.push({
-                    ...job,
-                    tipo: 'peças',
-                });
-            });
-        }
+            }
+        });
 
         return jobsMapped;
     }
