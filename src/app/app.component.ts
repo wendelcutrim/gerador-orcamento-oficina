@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    template: ` <main class="container">
+        <router-outlet></router-outlet>
+    </main>`,
+    styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'gerador-orcamento-oficina';
+    title = 'gerador-orcamento-oficina';
 }

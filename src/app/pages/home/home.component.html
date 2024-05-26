@@ -1,0 +1,117 @@
+<section class="home px-20">
+    <h1>Gerador de orçamentos</h1>
+
+    <div class="mt-10">
+        <app-alert
+            [showAlert]="alertOptions.showAlert"
+            [icon]="alertOptions.icon"
+            [title]="alertOptions.title"
+            [text]="alertOptions.text"
+            [showCloseButton]="alertOptions.showCloseButton"
+            [variant]="alertOptions.variant"
+            (closeAlert)="handleAlertEvent()"
+        ></app-alert>
+    </div>
+
+    <article class="home__form">
+        <form class="home__form__veiculo" [formGroup]="veiculoForm">
+            <h2>Dados do veículo</h2>
+            <div class="home__form__veiculo__wrapper">
+                <mat-form-field>
+                    <mat-label>Proprietário</mat-label>
+                    <input matInput formControlName="proprietario" />
+                    <mat-error *ngIf="veiculoForm.get('proprietario')?.touched && veiculoForm.get('proprietario')?.hasError('required')">
+                        Proprietário é obrigatório!
+                    </mat-error>
+                    <mat-error *ngIf="veiculoForm.get('proprietario')?.hasError('pattern')"> Digite um nome válido, só é permitido letras! </mat-error>
+                    <mat-error *ngIf="veiculoForm.get('proprietario')?.touched && veiculoForm.get('proprietario')?.hasError('maxlength')">
+                        Nome deve ter no máximo 255 caracteres!
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Placa</mat-label>
+                    <input matInput formControlName="placa" placeholder="ABC-1234" appVehiclePlateMask />
+                    <mat-error *ngIf="veiculoForm.get('placa')?.touched && veiculoForm.get('placa')?.hasError('required')">Placa é obrigatório!</mat-error>
+                    <mat-error *ngIf="veiculoForm.get('placa')?.touched && veiculoForm.get('placa')?.hasError('maxlength')"
+                        >Placa deve ter 8 caracteres</mat-error
+                    >
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Veículo</mat-label>
+                    <input matInput formControlName="marca" />
+                    <mat-error *ngIf="veiculoForm.get('marca')?.touched && veiculoForm.get('marca')?.hasError('required')">Veículo é obrigatório!</mat-error>
+                    <mat-error *ngIf="servicoForm.get('marca')?.hasError('pattern')"> Só pode conter letras, números e os caracteres ["," e "."]! </mat-error>
+                    <mat-error *ngIf="servicoForm.get('marca')?.hasError('maxlength')"> Veículo deve ter no máximo 250 caracteres! </mat-error>
+                    <mat-error *ngIf="servicoForm.get('marca')?.hasError('pattern')">Só pode conter letras, números e os caracteres ["," e "."]!</mat-error>
+                </mat-form-field>
+            </div>
+        </form>
+
+        <form class="home__form__observacoes" [formGroup]="observacoes">
+            <h2>Observações</h2>
+            <div class="home__form__observacoes__wrapper">
+                <mat-form-field>
+                    <mat-label>Observações</mat-label>
+                    <textarea matInput formControlName="observacao"></textarea>
+                    <mat-error *ngIf="observacoes.get('observacao')?.touched && servicoForm.get('observacao')?.hasError('maxlength')">
+                        observação deve ter no máximo 500 caracteres!
+                    </mat-error>
+                    <mat-error *ngIf="observacoes.get('observacao')?.hasError('pattern')">
+                        Só pode conter letras, números e os caracteres [",",".", "()", ":"]!
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </form>
+
+        <form class="home__form__servicos" [formGroup]="servicoForm">
+            <h2>Serviços</h2>
+            <div class="home__form__servicos__wrapper">
+                <mat-chip-listbox *ngIf="tipoServicos.length" aria-label="serviços">
+                    <mat-chip-option *ngFor="let servico of tipoServicos" (click)="setTipoServico(servico)">{{ getJobName(servico) }}</mat-chip-option>
+                </mat-chip-listbox>
+
+                <mat-form-field>
+                    <mat-label>Descrição</mat-label>
+                    <textarea matInput formControlName="descricao"></textarea>
+                    <mat-error *ngIf="servicoForm.get('descricao')?.touched && servicoForm.get('descricao')?.hasError('required')">
+                        descrição é obrigatório!
+                    </mat-error>
+                    <mat-error *ngIf="servicoForm.get('descricao')?.hasError('pattern')">
+                        Só pode conter letras, números e os caracteres ["," e "."]!
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field floatLabel="always">
+                    <mat-label>Valor</mat-label>
+                    <input matInput type="number" formControlName="valor" placeholder="0,00" step="0.01" />
+                    <span matTextPrefix>R$&nbsp;</span>
+                    <mat-error *ngIf="servicoForm.get('valor')?.touched && servicoForm.get('valor')?.hasError('required')">Valor é obrigatório!</mat-error>
+                </mat-form-field>
+
+                <button mat-raised-button color="primary" (click)="addJob()" [disabled]="servicoForm.invalid || !tipoServico">adicionar serviço</button>
+            </div>
+        </form>
+    </article>
+
+    <article class="home__form__jobs">
+        <div *ngIf="servicos['funilaria'].length > 0">
+            <app-job-summary [jobs]="servicos['funilaria']" title="funilaria" (destroyJob)="deleteJob($event)"></app-job-summary>
+        </div>
+
+        <div *ngIf="servicos['pintura'].length > 0">
+            <app-job-summary [jobs]="servicos['pintura']" title="pintura" (destroyJob)="deleteJob($event)"></app-job-summary>
+        </div>
+
+        <div *ngIf="servicos['maoDeObra'].length > 0">
+            <app-job-summary [jobs]="servicos['maoDeObra']" title="mão de obra" (destroyJob)="deleteJob($event)"></app-job-summary>
+        </div>
+
+        <div *ngIf="servicos['peca'].length > 0">
+            <app-job-summary [jobs]="servicos['peca']" title="peças" (destroyJob)="deleteJob($event)"></app-job-summary>
+        </div>
+    </article>
+
+    <button class="home__pdf-button" mat-raised-button color="primary" [disabled]="disabledPdfButton()" (click)="printPdf()">gerar pdf</button>
+</section>

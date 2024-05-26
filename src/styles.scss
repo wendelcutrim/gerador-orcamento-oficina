@@ -1,4 +1,78 @@
-/* You can add global styles to this file, and also import other style files */
+@import './scss/functions.scss';
+@import './scss/mixins.scss';
+@import './scss/variables.scss';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    background-color: whitesmoke;
+}
+body {
+    margin: 0;
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.sr-only {
+    position: absolute;
+    top: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+}
+
+@include generate-sizes-rem('.mt-', 'margin-top', 500);
+@include generate-sizes-rem('.mb-', 'margin-bottom', 500);
+@include generate-sizes-rem('.ml-', 'margin-left', 500);
+@include generate-sizes-rem('.mr-', 'margin-right', 500);
+@include generate-sizes-rem('.mx-', 'margin', 500);
+
+@include generate-sizes-rem('.pt-', 'padding-top', 0);
+@include generate-sizes-rem('.pb-', 'padding-bottom', 0);
+@include generate-sizes-rem('.pl-', 'padding-left', 0);
+@include generate-sizes-rem('.pr-', 'padding-right', 0);
+@include generate-sizes-rem('.px-', 'padding', 0);
+
+@include generate-sizes-rem('.w-', 'width', 500);
+@include generate-sizes-rem('.h-', 'height', 500);
+
+@include generate-sizes-percent('.w-per-', 'width');
+@include generate-sizes-percent('.h-per-', 'height');
+
+/* @media print {
+    body {
+        background-color: white;
+    }
+
+    mat-form-field {
+        background: white !important;
+    }
+
+    .mdc-text-field,
+    .mdc-text-field--filled,
+    .mat-mdc-text-field-wrapper,
+    .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+        background-color: white !important;
+    }
+} */
