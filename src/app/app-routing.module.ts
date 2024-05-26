@@ -5,10 +5,11 @@ import { ErrorComponent } from './pages/error/error.component';
 import { PrintComponent } from './pages/print/print.component';
 
 const routes: Routes = [
-    { path: 'home', component: HomeComponent },
+    { path: '', component: HomeComponent },
+    // { path: 'home', component: HomeComponent },
     { path: 'error', component: ErrorComponent },
     { path: 'print', component: PrintComponent },
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
+    // { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: '**', redirectTo: '/error' },
 ];
 

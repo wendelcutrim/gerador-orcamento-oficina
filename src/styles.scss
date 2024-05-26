@@ -42,6 +42,10 @@ a {
     font-size: 0;
 }
 
+body {
+    overscroll-behavior: contain;
+}
+
 @include generate-sizes-rem('.mt-', 'margin-top', 500);
 @include generate-sizes-rem('.mb-', 'margin-bottom', 500);
 @include generate-sizes-rem('.ml-', 'margin-left', 500);
