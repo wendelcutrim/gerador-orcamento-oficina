@@ -1,14 +1,18 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, Input, OnInit, ViewChild } from '@angular/core';
 import { IOrcamento, IServico, IVeiculo, TipoServico, TipoServicos } from 'src/app/interfaces/orcamento.interface';
 import { PrintService } from 'src/app/services/print.service';
 import dayjs from 'dayjs';
 import { Router } from '@angular/router';
+import * as html2pdf from 'html2pdf.js';
+import Swal from 'sweetalert2';
+
 @Component({
     selector: 'app-print',
     templateUrl: './print.component.html',
     styleUrls: ['./print.component.scss'],
 })
 export class PrintComponent implements OnInit {
+    @ViewChild('printArea') printArea!: ElementRef<HTMLElement>;
     private printService: PrintService = inject(PrintService);
     private router: Router = inject(Router);
 
@@ -23,6 +27,13 @@ export class PrintComponent implements OnInit {
     showTable: boolean = false;
     today: Date = new Date();
     next10days = dayjs().add(10, 'day').format('DD/MM/YYYY');
+    pdfOptions = {
+        margin: 2,
+        filename: `orçamento ${this.vehicleData.proprietario} ${dayjs(this.today).format('DD/MM/YYYY')}.pdf`,
+        // image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    };
 
     ngOnInit(): void {
         this.fetchData();
@@ -95,8 +106,19 @@ export class PrintComponent implements OnInit {
 
     print() {
         console.log('chamou a função print');
-        alert('teste impressao');
-        this.printService.resetAllState();
-        this.redirectTo();
+        html2pdf().set(this.pdfOptions).from(this.printArea.nativeElement).save();
+        Swal.fire({
+            // position: 'top-end',
+            // timer: 2000,
+            icon: 'success',
+            title: `Download do orçamento ${this.pdfOptions.filename} concluído com sucesso!`,
+            text: 'verifique o arquivo na pasta de download e envie para o cliente através do whatsapp!',
+            showConfirmButton: true,
+        }).then((res) => {
+            if (res.isConfirmed) {
+                this.printService.resetAllState();
+                this.redirectTo();
+            }
+        });
     }
 }

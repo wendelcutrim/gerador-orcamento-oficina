@@ -1,4 +1,4 @@
-<section class="print">
+<section class="print" id="print-area" #printArea>
     <header>
         <h1>Aparecido R. dos Santos Funilaria e Pintura</h1>
         <p>CNPJ: 38.652.763/0001-90</p>
@@ -60,15 +60,15 @@
             Orçamento válido até: <strong>{{ next10days }}</strong>
         </p>
     </article>
-
-    <div class="print__controls">
-        <button mat-fab extended color="primary" (click)="print()">
-            <mat-icon aria-hidden="true">picture_as_pdf</mat-icon>
-            imprimir orçamento
-        </button>
-        <button mat-fab extended color="accent" (click)="redirectTo()">
-            <mat-icon aria-hidden="true">arrow_back</mat-icon>
-            voltar
-        </button>
-    </div>
 </section>
+
+<div class="print__controls">
+    <button mat-fab extended color="primary" (click)="print()">
+        <mat-icon aria-hidden="true">picture_as_pdf</mat-icon>
+        imprimir orçamento
+    </button>
+    <button mat-fab extended color="accent" (click)="redirectTo()">
+        <mat-icon aria-hidden="true">arrow_back</mat-icon>
+        voltar
+    </button>
+</div>
