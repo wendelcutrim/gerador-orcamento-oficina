@@ -23,9 +23,10 @@ import { VehiclePlateMaskDirective } from './directives/vehicle-plate-mask.direc
 import { PrintComponent } from './pages/print/print.component';
 import { MatTableModule } from '@angular/material/table';
 import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
+import { CompanyDataComponent } from './pages/company-data/company-data.component';
 
 @NgModule({
-    declarations: [AppComponent, HomeComponent, ErrorComponent, JobSummaryComponent, AlertComponent, VehiclePlateMaskDirective, PrintComponent],
+    declarations: [AppComponent, HomeComponent, ErrorComponent, JobSummaryComponent, AlertComponent, VehiclePlateMaskDirective, PrintComponent, CompanyDataComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
