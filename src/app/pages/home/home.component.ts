@@ -85,17 +85,23 @@ export class HomeComponent implements OnInit {
                 valor: this.servicoForm.get('valor')?.value as string,
             };
             this.servicos[this.tipoServico].push(servico);
-            this.servicoForm.reset();
-            this.resetTipoServicos();
-            this.alertOptions = {
-                icon: 'info',
-                showAlert: true,
-                showCloseButton: true,
-                text: '',
-                title: 'Serviço adicionado com sucesso!',
-                variant: 'success',
-            };
-            windowScrollTo(0, 0);
+
+            this.printService.setJobs(this.servicos).subscribe({
+                next: (res) => {
+                    this.servicoForm.reset();
+                    this.resetTipoServicos();
+                    this.alertOptions = {
+                        icon: 'info',
+                        showAlert: true,
+                        showCloseButton: true,
+                        text: '',
+                        title: 'Serviço adicionado com sucesso!',
+                        variant: 'success',
+                    };
+                    windowScrollTo(0, 0);
+                },
+                error: (err) => console.log('printPdf.setJobs err: ', err),
+            });
         } else {
             this.alertOptions = {
                 icon: 'error',
@@ -176,13 +182,18 @@ export class HomeComponent implements OnInit {
     }
 
     printPdf() {
-        this.printService.setJobs(this.servicos).subscribe();
-        this.printService.setVehicleData(this.veiculoForm.value as IVeiculo).subscribe();
+        this.printService.setVehicleData(this.veiculoForm.value as IVeiculo).subscribe({
+            next: (res) => {
+                if (this.observacoes.get('observacao')?.value) {
+                    this.printService.setComments(this.observacoes.get('observacao')?.value).subscribe({
+                        next: (res) => console.log('printPdf.setComments res: ', res),
+                        error: (err) => console.log('printPdf.setComments err: ', err),
+                    });
+                }
 
-        if (this.observacoes.get('observacao')?.value) {
-            this.printService.setComments(this.observacoes.get('observacao')?.value).subscribe();
-        }
-
-        this.router.navigate(['/print']);
+                this.router.navigate(['/print']);
+            },
+            error: (err) => console.log('printPdf.setVehicleData err: ', err),
+        });
     }
 }

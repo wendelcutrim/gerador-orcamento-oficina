@@ -1,4 +1,13 @@
 <section class="company px-20">
+    <app-alert
+        [showAlert]="alertOptions.showAlert"
+        [icon]="alertOptions.icon"
+        [title]="alertOptions.title"
+        [text]="alertOptions.text"
+        [showCloseButton]="alertOptions.showCloseButton"
+        [variant]="alertOptions.variant"
+        (closeAlert)="handleAlertEvent()"
+    ></app-alert>
     <h1>Dados da empresa</h1>
     <p>Preencha os campos a seguir para configurar os dados da empresa na impressão do pdf!</p>
     <form class="company__form" [formGroup]="company">
@@ -39,7 +48,19 @@
             </mat-form-field>
         </div>
 
-        <button mat-raised-button color="primary" [disabled]="company.invalid" (click)="save()">
+        <button
+            type="button"
+            mat-raised-button
+            color="primary"
+            [disabled]="company.invalid"
+            [swal]="{
+            title: 'Dados da empresa salvos com sucesso!',
+            icon: 'success',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#3f51b5',
+        }"
+            (confirm)="save()"
+        >
             <mat-icon>save</mat-icon>
             salvar
         </button>

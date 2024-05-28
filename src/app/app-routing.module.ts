@@ -7,7 +7,7 @@ import { CompanyDataComponent } from './pages/company-data/company-data.componen
 import { hasCompanyGuard } from './guards/has-company.guard';
 
 const routes: Routes = [
-    { path: '', component: HomeComponent, canActivate: [hasCompanyGuard] },
+    { path: '', component: HomeComponent, canActivate: [hasCompanyGuard], pathMatch: 'full' },
     { path: 'error', component: ErrorComponent },
     { path: 'print', component: PrintComponent, canActivate: [hasCompanyGuard] },
     { path: 'company', component: CompanyDataComponent },

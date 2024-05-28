@@ -47,7 +47,8 @@
     }
 
     &__controls {
-        margin-top: remCalc(24);
+        margin: remCalc(24) 0;
+        padding: 10px;
         display: grid;
         grid-template-columns: 1fr;
         gap: 1rem;
