@@ -169,31 +169,35 @@ export class HomeComponent implements OnInit {
 
         this.servicos[title] = this.servicos[title].filter((servico) => servico.id !== id);
 
-        this.alertOptions = {
-            icon: 'info',
-            showAlert: true,
-            showCloseButton: true,
-            text: '',
-            title: 'Serviço excluído com sucesso!',
-            variant: 'success',
-        };
-
-        windowScrollTo(0, 0);
+        this.printService.setJobs(this.servicos).subscribe({
+            next: (res) => {
+                this.alertOptions = {
+                    icon: 'info',
+                    showAlert: true,
+                    showCloseButton: true,
+                    text: '',
+                    title: 'Serviço excluído com sucesso!',
+                    variant: 'success',
+                };
+                windowScrollTo(0, 0);
+            },
+            error: (err) => console.log('printPdf.setJobs err: ', err),
+        });
     }
 
     printPdf() {
         this.printService.setVehicleData(this.veiculoForm.value as IVeiculo).subscribe({
-            next: (res) => {
-                if (this.observacoes.get('observacao')?.value) {
-                    this.printService.setComments(this.observacoes.get('observacao')?.value).subscribe({
-                        next: (res) => console.log('printPdf.setComments res: ', res),
-                        error: (err) => console.log('printPdf.setComments err: ', err),
-                    });
-                }
-
-                this.router.navigate(['/print']);
-            },
+            next: (res) => {},
             error: (err) => console.log('printPdf.setVehicleData err: ', err),
         });
+
+        this.printService.setComments(this.observacoes.get('observacao')?.value ?? '').subscribe({
+            next: (res) => {
+                console.log('printPdf.setComments res: ', res);
+            },
+            error: (err) => console.log('printPdf.setComments err: ', err),
+        });
+
+        this.router.navigate(['/print']);
     }
 }

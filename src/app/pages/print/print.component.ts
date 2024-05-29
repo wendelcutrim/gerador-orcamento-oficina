@@ -1,5 +1,5 @@
-import { Component, ElementRef, inject, Input, OnInit, ViewChild } from '@angular/core';
-import { IOrcamento, IServico, IVeiculo, TipoServico, TipoServicos } from 'src/app/interfaces/orcamento.interface';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { IOrcamento, IVeiculo, TipoServico, TipoServicos } from 'src/app/interfaces/orcamento.interface';
 import { PrintService } from 'src/app/services/print.service';
 import dayjs from 'dayjs';
 import { Router } from '@angular/router';
@@ -7,6 +7,8 @@ import * as html2pdf from 'html2pdf.js';
 import Swal from 'sweetalert2';
 import { ICompany } from 'src/app/interfaces/company.interface';
 import { CompanyService } from 'src/app/services/company.service';
+import { MatDialog } from '@angular/material/dialog';
+import { CompanyFormModalComponent } from 'src/app/components/company-form-modal/company-form-modal.component';
 
 @Component({
     selector: 'app-print',
@@ -18,6 +20,8 @@ export class PrintComponent implements OnInit {
     private printService: PrintService = inject(PrintService);
     private companyService: CompanyService = inject(CompanyService);
     private router: Router = inject(Router);
+
+    constructor(public dialog: MatDialog) {}
 
     company: ICompany = {
         celular: '',
@@ -158,6 +162,26 @@ export class PrintComponent implements OnInit {
                     }
                 });
             },
+        });
+    }
+
+    openDialog(): void {
+        const dialogRef = this.dialog.open(CompanyFormModalComponent, {
+            data: { ...this.company },
+        });
+
+        dialogRef.afterClosed().subscribe((res) => {
+            console.log('The dialog was closed with res: ', res);
+            if (res !== undefined) {
+                const updatedCompany = res;
+                this.companyService.setCompany(updatedCompany).subscribe({
+                    next: (res) => {
+                        if (res !== null) {
+                            this.company = this.company;
+                        }
+                    },
+                });
+            }
         });
     }
 }

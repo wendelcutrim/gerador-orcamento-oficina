@@ -46,7 +46,7 @@ export class CompanyDataComponent implements OnInit {
             this.companyService.setCompany(this.company.value as ICompany).subscribe({
                 next: (res) => {
                     this.company.reset();
-                    this.router.navigate(['/']);
+                    window.location.href = window.location.href.split('/')[0];
                 },
                 error: (err) => {
                     const options: Alert = {
