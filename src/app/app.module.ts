@@ -1,4 +1,4 @@
-import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,7 +22,6 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { VehiclePlateMaskDirective } from './directives/vehicle-plate-mask.directive';
 import { PrintComponent } from './pages/print/print.component';
 import { MatTableModule } from '@angular/material/table';
-import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
 import { CompanyDataComponent } from './pages/company-data/company-data.component';
 import { CompanyFormModalComponent } from './components/company-form-modal/company-form-modal.component';
 

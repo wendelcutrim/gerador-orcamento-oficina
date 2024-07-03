@@ -1,6 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Alert } from 'src/app/interfaces/alert.interface';
 import { ICompany } from 'src/app/interfaces/company.interface';
 import { CompanyService } from 'src/app/services/company.service';
@@ -13,7 +12,6 @@ import { CompanyService } from 'src/app/services/company.service';
 export class CompanyDataComponent implements OnInit {
     private formBuilder: FormBuilder = inject(FormBuilder);
     private companyService: CompanyService = inject(CompanyService);
-    private router: Router = inject(Router);
 
     company: FormGroup = this.formBuilder.group({
         nome: [
@@ -44,10 +42,12 @@ export class CompanyDataComponent implements OnInit {
     save() {
         if (this.company.valid) {
             this.companyService.setCompany(this.company.value as ICompany).subscribe({
+                //@ts-ignore-next-line
                 next: (res) => {
                     this.company.reset();
                     window.location.href = window.location.href.split('/')[0];
                 },
+                //@ts-ignore-next-line
                 error: (err) => {
                     const options: Alert = {
                         icon: 'error',
@@ -82,6 +82,7 @@ export class CompanyDataComponent implements OnInit {
                         this.company.patchValue(res as ICompany);
                     }
                 },
+                //@ts-ignore-next-line
                 error: (err) => {
                     const options: Alert = {
                         icon: 'error',

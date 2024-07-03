@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AlertIcon, AlertVariant } from 'src/app/interfaces/alert.interface';
 
 @Component({

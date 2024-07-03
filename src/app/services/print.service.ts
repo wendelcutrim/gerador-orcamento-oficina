@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IVeiculo, TipoServicos } from '../interfaces/orcamento.interface';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',

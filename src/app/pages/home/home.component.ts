@@ -87,6 +87,7 @@ export class HomeComponent implements OnInit {
             this.servicos[this.tipoServico].push(servico);
 
             this.printService.setJobs(this.servicos).subscribe({
+                //@ts-ignore-next-line
                 next: (res) => {
                     this.servicoForm.reset();
                     this.resetTipoServicos();
@@ -170,6 +171,7 @@ export class HomeComponent implements OnInit {
         this.servicos[title] = this.servicos[title].filter((servico) => servico.id !== id);
 
         this.printService.setJobs(this.servicos).subscribe({
+            //@ts-ignore-next-line
             next: (res) => {
                 this.alertOptions = {
                     icon: 'info',
@@ -187,6 +189,7 @@ export class HomeComponent implements OnInit {
 
     printPdf() {
         this.printService.setVehicleData(this.veiculoForm.value as IVeiculo).subscribe({
+            //@ts-ignore-next-line
             next: (res) => {},
             error: (err) => console.log('printPdf.setVehicleData err: ', err),
         });
