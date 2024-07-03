@@ -1,0 +1,68 @@
+<section class="company px-20">
+    <app-alert
+        [showAlert]="alertOptions.showAlert"
+        [icon]="alertOptions.icon"
+        [title]="alertOptions.title"
+        [text]="alertOptions.text"
+        [showCloseButton]="alertOptions.showCloseButton"
+        [variant]="alertOptions.variant"
+        (closeAlert)="handleAlertEvent()"
+    ></app-alert>
+    <h1>Dados da empresa</h1>
+    <p>Preencha os campos a seguir para configurar os dados da empresa na impressão do pdf!</p>
+    <form class="company__form" [formGroup]="company">
+        <div class="company__form__wrapper">
+            <mat-form-field>
+                <mat-label>Nome da empresa</mat-label>
+                <input matInput formControlName="nome" />
+                <mat-error *ngIf="company.get('nome')?.touched && company.get('nome')?.hasError('required')">Nome da empresa é obrigatório!</mat-error>
+                <mat-error *ngIf="company.get('nome')?.hasError('pattern')">
+                    Digite um nome válido, só é permitido letras, números e os caracteres especiais: [(), -, ., ',']
+                </mat-error>
+                <mat-error *ngIf="company.get('nome')?.touched && company.get('nome')?.hasError('maxlength')">
+                    Nome deve ter no máximo 255 caracteres!
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>CNPJ</mat-label>
+                <input matInput formControlName="cnpj" />
+                <mat-error *ngIf="company.get('cnpj')?.touched && company.get('cnpj')?.hasError('required')">CNPJ é obrigatório!</mat-error>
+                <mat-error *ngIf="company.get('cnpj')?.touched && company.get('cnpj')?.hasError('maxlength')">CNPJ deve ter 18 caracteres</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Endereço</mat-label>
+                <input matInput formControlName="endereco" />
+                <mat-error *ngIf="company.get('endereco')?.touched && company.get('endereco')?.hasError('required')">Endereço é obrigatório!</mat-error>
+                <mat-error *ngIf="company.get('endereco')?.hasError('pattern')"
+                    >Só é permitido letras, números e os caracteres especiais: [(), -, ., ',']</mat-error
+                >
+                <mat-error *ngIf="company.get('endereco')?.hasError('maxlength')"> Endereço deve ter no máximo 255 caracteres! </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Celular</mat-label>
+                <input matInput formControlName="celular" />
+                <mat-error *ngIf="company.get('celular')?.touched && company.get('celular')?.hasError('required')">Celular é obrigatório!</mat-error>
+            </mat-form-field>
+        </div>
+
+        <button
+            type="button"
+            mat-raised-button
+            color="primary"
+            [disabled]="company.invalid"
+            [swal]="{
+            title: 'Dados da empresa salvos com sucesso!',
+            icon: 'success',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#3f51b5',
+        }"
+            (confirm)="save()"
+        >
+            <mat-icon>save</mat-icon>
+            salvar
+        </button>
+    </form>
+</section>

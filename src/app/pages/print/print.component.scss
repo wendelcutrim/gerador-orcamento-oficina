@@ -47,13 +47,19 @@
     }
 
     &__controls {
-        margin-top: remCalc(24);
+        margin: remCalc(24) 0;
+        padding: 10px;
         display: grid;
         grid-template-columns: 1fr;
         gap: 1rem;
 
         button {
             width: 100%;
+        }
+
+        @media screen and (min-width: 768px) {
+            grid-template-columns: 1fr 1fr 1fr;
+            align-items: center;
         }
     }
 }

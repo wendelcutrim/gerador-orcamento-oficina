@@ -6,9 +6,10 @@ import { Directive, HostListener } from '@angular/core';
 export class VehiclePlateMaskDirective {
     constructor() {}
 
-    @HostListener('keypress', ['$event']) onKeyDown(event: KeyboardEvent) {
+    @HostListener('keydown', ['$event']) onKeyDown(event: KeyboardEvent) {
         const input = event.target as HTMLInputElement;
         const inputValue = input.value;
+        const regExp = /^[a-zA-Z0-9\s-]+$/;
 
         if (inputValue.length) {
             input.value = inputValue.toUpperCase();
@@ -27,6 +28,10 @@ export class VehiclePlateMaskDirective {
         }
 
         if (event.key == '-' || event.code == 'Space') {
+            event.preventDefault();
+        }
+
+        if (!event.key.match(regExp)) {
             event.preventDefault();
         }
     }

@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { IServico, IServicoResumo, TipoServico } from 'src/app/interfaces/orcamento.interface';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { IServico } from 'src/app/interfaces/orcamento.interface';
 import Swal from 'sweetalert2';
 
 @Component({

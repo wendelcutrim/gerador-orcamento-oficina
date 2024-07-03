@@ -21,12 +21,16 @@
         "useDefineForClassFields": false,
         "lib": ["ES2022", "dom"],
         "allowSyntheticDefaultImports": true,
-        "noImplicitAny": false
+        "noImplicitAny": false,
+        "strictPropertyInitialization": false, //Para nao reclamar de atributos sem valores iniciados
+        "noUnusedLocals": true,
+        "noUnusedParameters": true
     },
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,
         "strictInjectionParameters": true,
         "strictInputAccessModifiers": true,
-        "strictTemplates": true
+        "strictTemplates": true,
+        "strictPropertyInitialization": false //Para nao reclamar de atributos sem valores iniciados
     }
 }

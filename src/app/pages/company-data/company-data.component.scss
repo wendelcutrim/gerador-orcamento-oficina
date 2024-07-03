@@ -1,0 +1,49 @@
+@import '../../../scss/functions.scss';
+
+.company {
+    mat-form-field {
+        width: 100%;
+    }
+
+    h1 {
+        font-weight: bold;
+    }
+
+    &__form {
+        margin-top: remCalc(32);
+        display: flex;
+        flex-direction: column;
+        gap: remCalc(8);
+        justify-content: center;
+        align-items: center;
+
+        border: 1px solid black;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: white;
+
+        button {
+            width: 100%;
+        }
+
+        @media screen and (min-width: 768px) {
+            button {
+                width: 300px;
+            }
+        }
+
+        &__wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: remCalc(16);
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            width: 100%;
+
+            @media screen and (min-width: 768px) {
+                padding: 20px;
+            }
+        }
+    }
+}

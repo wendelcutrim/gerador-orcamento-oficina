@@ -1,12 +1,14 @@
 {
     "name": "gerador-orcamento-oficina",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
         "build": "ng build --configuration production",
         "watch": "ng build --watch --configuration development",
-        "test": "jest --no-cache --coverage --verbose"
+        "test": "jest --no-cache --coverage --verbose",
+        "deploy:gh-pages": "ng build --configuration production --base-href='/gerador-orcamento-oficina/' && npx angular-cli-ghpages --dir=dist"
+
     },
     "private": true,
     "dependencies": {

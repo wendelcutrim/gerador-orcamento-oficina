@@ -1,9 +1,9 @@
 <section class="print" id="print-area" #printArea>
     <header>
-        <h1>Aparecido R. dos Santos Funilaria e Pintura</h1>
-        <p>CNPJ: 38.652.763/0001-90</p>
-        <p>Rua Itajaí, 656 – Vila Nova, Londrina – PR</p>
-        <p>Cel.: (43) 98413-5015</p>
+        <h1>{{ company.nome | titlecase }}</h1>
+        <p>CNPJ: {{ company.cnpj }}</p>
+        <p>{{ company.endereco }}</p>
+        <p>Cel.: {{ company.celular }}</p>
     </header>
 
     <article class="print__vehicle">
@@ -63,12 +63,17 @@
 </section>
 
 <div class="print__controls">
-    <button mat-fab extended color="primary" (click)="print()">
+    <button type="button" mat-fab extended color="primary" (click)="print()">
         <mat-icon aria-hidden="true">picture_as_pdf</mat-icon>
         imprimir orçamento
     </button>
-    <button mat-fab extended color="accent" (click)="redirectTo()">
+    <button type="button" mat-fab extended color="basic" (click)="openDialog()">
+        <mat-icon aria-hidden="true">edit</mat-icon>
+        editar dados da empresa
+    </button>
+    <button type="button" mat-fab extended color="accent" (click)="redirectTo()">
         <mat-icon aria-hidden="true">arrow_back</mat-icon>
         voltar
     </button>
 </div>
+<!-- <app-company-form-modal></app-company-form-modal> -->
