@@ -1,0 +1,14 @@
+☐ Criar pasta de constants e transferir os patterns para ela e reaplicar nos formulários puxando dos patterns;
+
+☐ Na parte de cadastro da empresa (modal e página), realizar as validações corretas dos campos e adicionar placeholders de apoio
+    ☐ CNPJ: Permitir somente números e sem espaços
+    ☐ Celular: Permitir somente números e sem espaçoes. Também alterar o label para telefone e incluir validação de maxLength de 11 caracteres.
+
+☐ Criar pipes para formatar:
+    ☐ CNPJ
+    ☐ CELULAR
+
+☐ Inserir title nas páginas.
+
+☐ Realizar testes unitários
+☐ Instalar e configurar o cypress para realizar testes e2e

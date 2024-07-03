@@ -1,0 +1,47 @@
+<section class="company__modal">
+    <h1 mat-dialog-title>Editar dados da empresa</h1>
+    <div mat-dialog-content>
+        <form class="company__modal__form" [formGroup]="company">
+            <div class="company__modal__form__wrapper">
+                <mat-form-field>
+                    <mat-label>Nome da empresa</mat-label>
+                    <input matInput formControlName="nome" />
+                    <mat-error *ngIf="company.get('nome')?.touched && company.get('nome')?.hasError('required')">Nome da empresa é obrigatório!</mat-error>
+                    <mat-error *ngIf="company.get('nome')?.hasError('pattern')">
+                        Digite um nome válido, só é permitido letras, números e os caracteres especiais: [(), -, ., ',']
+                    </mat-error>
+                    <mat-error *ngIf="company.get('nome')?.touched && company.get('nome')?.hasError('maxlength')">
+                        Nome deve ter no máximo 255 caracteres!
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>CNPJ</mat-label>
+                    <input matInput formControlName="cnpj" />
+                    <mat-error *ngIf="company.get('cnpj')?.touched && company.get('cnpj')?.hasError('required')">CNPJ é obrigatório!</mat-error>
+                    <mat-error *ngIf="company.get('cnpj')?.touched && company.get('cnpj')?.hasError('maxlength')">CNPJ deve ter 18 caracteres</mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Endereço</mat-label>
+                    <input matInput formControlName="endereco" />
+                    <mat-error *ngIf="company.get('endereco')?.touched && company.get('endereco')?.hasError('required')">Endereço é obrigatório!</mat-error>
+                    <mat-error *ngIf="company.get('endereco')?.hasError('pattern')"
+                        >Só é permitido letras, números e os caracteres especiais: [(), -, ., ',']</mat-error
+                    >
+                    <mat-error *ngIf="company.get('endereco')?.hasError('maxlength')"> Endereço deve ter no máximo 255 caracteres! </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Celular</mat-label>
+                    <input matInput formControlName="celular" />
+                    <mat-error *ngIf="company.get('celular')?.touched && company.get('celular')?.hasError('required')">Celular é obrigatório!</mat-error>
+                </mat-form-field>
+            </div>
+        </form>
+    </div>
+    <div mat-dialog-actions align="end">
+        <button type="button" mat-button color="basic" (click)="closeModal()">cancelar</button>
+        <button type="button" mat-button color="primary" [disabled]="company.invalid" [mat-dialog-close]="company.value">atualizar</button>
+    </div>
+</section>

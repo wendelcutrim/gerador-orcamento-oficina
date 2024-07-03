@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -11,9 +10,22 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit {
     title = 'gerador-orcamento-oficina';
 
-    constructor(private router: Router) {}
+    constructor() {}
 
     ngOnInit(): void {
-        // this.router.navigate(['/home']);
+        this.disableNavigationReloadOnMobileDevices();
+    }
+
+    isMobileDevice() {
+        const mobileDevicesUserAgentsRegExp = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+        return mobileDevicesUserAgentsRegExp.test(navigator.userAgent);
+    }
+
+    disableNavigationReloadOnMobileDevices() {
+        const isMobileDevice = this.isMobileDevice();
+        console.log('isMobileDevice: ', isMobileDevice);
+        if (isMobileDevice) {
+            (window as any).navigation.reload = () => {};
+        }
     }
 }

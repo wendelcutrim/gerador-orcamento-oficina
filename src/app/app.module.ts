@@ -1,4 +1,4 @@
-import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { JobSummaryComponent } from './components/job-summary/job-summary.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { AlertComponent } from './components/alert/alert.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -22,10 +22,21 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { VehiclePlateMaskDirective } from './directives/vehicle-plate-mask.directive';
 import { PrintComponent } from './pages/print/print.component';
 import { MatTableModule } from '@angular/material/table';
-import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
+import { CompanyDataComponent } from './pages/company-data/company-data.component';
+import { CompanyFormModalComponent } from './components/company-form-modal/company-form-modal.component';
 
 @NgModule({
-    declarations: [AppComponent, HomeComponent, ErrorComponent, JobSummaryComponent, AlertComponent, VehiclePlateMaskDirective, PrintComponent],
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        ErrorComponent,
+        JobSummaryComponent,
+        AlertComponent,
+        VehiclePlateMaskDirective,
+        PrintComponent,
+        CompanyDataComponent,
+        CompanyFormModalComponent,
+    ],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -45,6 +56,8 @@ import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
         SweetAlert2Module.forRoot(),
     ],
     providers: [
+        { provide: MatDialogRef, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: {} },
         // { provide: LOCALE_ID, useValue: 'pt-BR' },
         // { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' },
         // { provide: DATE_PIPE_DEFAULT_OPTIONS, useValue: { style: 'currency', currency: 'BRL' } },

@@ -1,10 +1,14 @@
-import { Component, ElementRef, inject, Input, OnInit, ViewChild } from '@angular/core';
-import { IOrcamento, IServico, IVeiculo, TipoServico, TipoServicos } from 'src/app/interfaces/orcamento.interface';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { IOrcamento, IVeiculo, TipoServico, TipoServicos } from 'src/app/interfaces/orcamento.interface';
 import { PrintService } from 'src/app/services/print.service';
 import dayjs from 'dayjs';
 import { Router } from '@angular/router';
 import * as html2pdf from 'html2pdf.js';
 import Swal from 'sweetalert2';
+import { ICompany } from 'src/app/interfaces/company.interface';
+import { CompanyService } from 'src/app/services/company.service';
+import { MatDialog } from '@angular/material/dialog';
+import { CompanyFormModalComponent } from 'src/app/components/company-form-modal/company-form-modal.component';
 
 @Component({
     selector: 'app-print',
@@ -14,8 +18,17 @@ import Swal from 'sweetalert2';
 export class PrintComponent implements OnInit {
     @ViewChild('printArea') printArea!: ElementRef<HTMLElement>;
     private printService: PrintService = inject(PrintService);
+    private companyService: CompanyService = inject(CompanyService);
     private router: Router = inject(Router);
 
+    constructor(public dialog: MatDialog) {}
+
+    company: ICompany = {
+        celular: '',
+        cnpj: '',
+        nome: '',
+        endereco: '',
+    };
     jobs: IOrcamento[] = [{ descricao: 'a', id: '1', tipo: 'funilaria', valor: '10' }];
     vehicleData: IVeiculo = {
         marca: '',
@@ -29,14 +42,15 @@ export class PrintComponent implements OnInit {
     next10days = dayjs().add(10, 'day').format('DD/MM/YYYY');
     pdfOptions = {
         margin: 2,
-        filename: `orçamento ${this.vehicleData.proprietario} ${dayjs(this.today).format('DD/MM/YYYY')}.pdf`,
+        filename: 'test.pdf',
         // image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
+        // html2canvas: { scale: 2 },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
     };
 
     ngOnInit(): void {
         this.fetchData();
+        this.getCompanyData();
     }
 
     fetchData() {
@@ -54,6 +68,7 @@ export class PrintComponent implements OnInit {
                 this.vehicleData.marca = res.marca;
                 this.vehicleData.placa = res.placa;
                 this.vehicleData.proprietario = res.proprietario;
+                this.pdfOptions.filename = `orçamento ${this.vehicleData.proprietario} ${dayjs(this.today).format('DD/MM/YYYY')}.pdf`;
             },
         });
 
@@ -111,13 +126,61 @@ export class PrintComponent implements OnInit {
             // position: 'top-end',
             // timer: 2000,
             icon: 'success',
-            title: `Download do orçamento ${this.pdfOptions.filename} concluído com sucesso!`,
+            title: `Download do ${this.pdfOptions.filename} concluído com sucesso!`,
             text: 'verifique o arquivo na pasta de download e envie para o cliente através do whatsapp!',
             showConfirmButton: true,
         }).then((res) => {
             if (res.isConfirmed) {
                 this.printService.resetAllState();
                 this.redirectTo();
+            }
+        });
+    }
+
+    getFileName(): string {
+        return `orçamento ${this.vehicleData.proprietario} ${dayjs(this.today).format('DD/MM/YYYY')}.pdf`;
+    }
+
+    getCompanyData() {
+        this.companyService.getCompany().subscribe({
+            next: (res) => {
+                if (typeof res !== null) {
+                    this.company = res as ICompany;
+                }
+            },
+            error: (err) => {
+                console.log(err);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro',
+                    text: 'Erro ao buscar dados da empresa, verifique se os dados estão corretos e tente novamente',
+                    showConfirmButton: true,
+                    confirmButtonColor: '#3f51b5',
+                }).then((res) => {
+                    if (res.isConfirmed) {
+                        this.redirectTo('company');
+                    }
+                });
+            },
+        });
+    }
+
+    openDialog(): void {
+        const dialogRef = this.dialog.open(CompanyFormModalComponent, {
+            data: { ...this.company },
+        });
+
+        dialogRef.afterClosed().subscribe((res) => {
+            console.log('The dialog was closed with res: ', res);
+            if (res !== undefined) {
+                const updatedCompany = res;
+                this.companyService.setCompany(updatedCompany).subscribe({
+                    next: (res) => {
+                        if (res !== null) {
+                            this.company = this.company;
+                        }
+                    },
+                });
             }
         });
     }
